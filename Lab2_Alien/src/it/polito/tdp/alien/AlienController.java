@@ -48,38 +48,49 @@ public class AlienController {
     void doTranslate(ActionEvent event) {
     	String array[] = txtWord.getText().split(" ");
     	
-    	Pattern p = Pattern.compile("[a-zA-Z]");
+    	Pattern p = Pattern.compile("[a-zA-Z?]");
     	boolean hasSpecialChar = p.matcher(array[0]).find();
     	if(hasSpecialChar==false)
     		txtResult.appendText( "\n" + array[0]+ "Errore inserimento dati!");
     	// oppure fai stringa.matches("[a-zA-Z]*")==false
     	else{
-	    	if(array.length==1){
-	    		if(dizionario.traslateWord(array[0])==""){
-	    			txtResult.appendText("\nLa parola "+array[0]+" non è presente nel dizionario!");
-	    		}
-	    		else
-	    			txtResult.appendText("\nLa traduzione/i è/sono: "+dizionario.traslateWord(array[0]));
-	    	}
-	    	/*if(array.length==2){
-	    		dizionario.addWord(array[0], array[1]);
-	    		txtResult.appendText("\nParola aggiunta con traduzione: "+array[1]);
-	    	}*/
-	    	if(array.length>1){
-	    		boolean agg = dizionario.contieneGia(array[0]);
-	    		int i;
-	    		StringBuilder parole = new StringBuilder();
-	    		for(i = 1 ; i<array.length ; i++){
-	    			dizionario.addWord(array[0], array[i]);
-	    			//parole += array[i]+" ";
-	    			parole.append(array[i]+" ");
-	    		}
-	    		if(agg == false)
-	    			txtResult.appendText("\nParola aggiunta con traduzione/i: " + parole);
-	    		else
-	    			txtResult.appendText("\nParola ha avuto una/delle nuova/e traduzione/i: "+parole);
-	    	}
-    	}
+    		if(array[0].indexOf("?")==-1){
+		    	if(array.length==1){
+		    		if(dizionario.contieneGia(array[0])==false){
+		    			txtResult.appendText("\nLa parola "+array[0]+" non è presente nel dizionario!");
+		    		}
+		    		else
+		    			txtResult.appendText("\nLa traduzione/i è/sono: "+dizionario.traslateWord(array[0]));
+		    	}
+		    	/*if(array.length==2){
+		    		dizionario.addWord(array[0], array[1]);
+		    		txtResult.appendText("\nParola aggiunta con traduzione: "+array[1]);
+		    	}*/
+		    	if(array.length>1){
+		    		boolean agg = dizionario.contieneGia(array[0]);
+		    		int i;
+		    		StringBuilder parole = new StringBuilder();
+		    		for(i = 1 ; i<array.length ; i++){
+		    			dizionario.addWord(array[0], array[i]);
+		    			//parole += array[i]+" ";
+		    			parole.append(array[i]+" ");
+		    		}
+		    		if(agg == false)
+		    			txtResult.appendText("\nParola aggiunta con traduzione/i: " + parole);
+		    		else
+		    			txtResult.appendText("\nParola ha avuto una/delle nuova/e traduzione/i: "+parole);
+		    	}
+		    	txtWord.clear();
+    		}
+    		else{
+		    	if(dizionario.contieneGiaWild(array[0])==false){
+		    		txtResult.appendText("\nLa parola "+array[0]+" non è presente nel dizionario!");
+		    	}
+		    	else
+		    		txtResult.appendText("\nLa traduzione/i è/sono: "+dizionario.traslateWild(array[0]));
+    		    }
+    			txtWord.clear();
+    		}
     	    	
     }
     

@@ -17,6 +17,13 @@ public class WordEnhanced {
 		String altra = parolaAliena.toLowerCase();
 		return questa.equals(altra);
 	}
+	
+	public boolean compareWild(String parolaAliena){
+		String a = parolaAliena.replaceAll("\\?", ".");
+		if (alienWord.matches(a))
+			return true;
+		return false;
+	}
 
 	public String getAlienWord() {
 		return alienWord;

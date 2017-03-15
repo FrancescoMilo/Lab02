@@ -12,11 +12,26 @@ public class AlienDictionaryDUE {
 	
 	public boolean contieneGia(String alienWord){
 		boolean ris = false;
-		for(WordEnhanced w : lista)
-			ris = w.compare(alienWord);
+		for(WordEnhanced w : lista){
+			if(w.compare(alienWord)==true){
+				ris = w.compare(alienWord);
+				break;
+			}
+		}
 		return ris;
 	}
 	
+	public boolean contieneGiaWild(String alienWord){
+		boolean ris = false;
+		for(WordEnhanced w : lista){
+			if(w.compareWild(alienWord)==true){
+				ris=w.compareWild(alienWord);
+				break;
+			}
+		}
+		return ris;
+	}
+
 	public void addWord(String alienWord, String traslation){
 		boolean ce = false;
 		for(WordEnhanced w : lista){
@@ -35,20 +50,34 @@ public class AlienDictionaryDUE {
 	}
 	
 	public String traslateWord(String alienWord){
-		String ris = "";
+		StringBuilder ris = new StringBuilder();
 		for(WordEnhanced w : lista){
 			if(w.compare(alienWord)==true){
 				LinkedList<String> traduzioni = w.getTraslation();
 				for(String s : traduzioni)
-					ris += s+" ";
+					ris.append(s+" ");
 				break;
 			}
 		}
-		return ris;
+		return ris.toString();
 	}
 	
 	public void pulisci(){
 		lista.clear();
+	}
+	
+	public String traslateWild(String alienWord){
+		StringBuilder ris = new StringBuilder();
+		//alienWord.replaceAll("\\?", ".");
+		for(WordEnhanced w : lista){
+			if(w.compareWild(alienWord)==true){
+				LinkedList<String> traduzioni = w.getTraslation();
+				for(String s : traduzioni)
+					ris.append(s+" ");
+				break;
+			}
+		}
+		return ris.toString();
 	}
 
 }
