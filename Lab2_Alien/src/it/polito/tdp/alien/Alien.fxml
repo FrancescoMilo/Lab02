@@ -32,7 +32,7 @@
             <HBox alignment="CENTER" spacing="15.0">
                <children>
                   <Label text="Alien Text" />
-                  <TextField fx:id="txtWord" promptText="Insert the text" />
+                  <TextField fx:id="txtWord" onAction="#doTranslate" promptText="Insert the text" />
                   <Button fx:id="bttTraslate" mnemonicParsing="false" onAction="#doTranslate" text="Traslate" />
                   <ImageView fitHeight="92.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
